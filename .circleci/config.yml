@@ -8,6 +8,7 @@ jobs:
       - run:
           name: load latest
           command: |
+            apt update && apt upgrade -y
             cd /opt/circleci/.pyenv
             git pull
       - run:
