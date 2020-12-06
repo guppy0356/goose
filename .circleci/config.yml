@@ -22,7 +22,7 @@ jobs:
             python -m venv venv
             source venv/bin/activate
 
-            pipenv install
+            pip install aws-sam-cli
 
             sam build --use-container
 
