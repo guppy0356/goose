@@ -25,6 +25,15 @@ jobs:
             pip install aws-sam-cli
 
             sam build --use-container
+      - run:
+          name: loca start-api
+          command: |
+            sam local start-api
+          background: true
+      - run:
+          name: curl
+          command: |
+            curl -X GET http://127.0.0.1:3000/hello
 
 workflows:
   version: 2
