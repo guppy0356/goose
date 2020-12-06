@@ -28,6 +28,7 @@ jobs:
       - run:
           name: loca start-api
           command: |
+            ls
             source venv/bin/activate
 
             sam local start-api
