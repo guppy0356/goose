@@ -1,33 +1,28 @@
-deploy_template: &deploy_template
-  machine: true
-  working_directory: ~/project/app
-  steps:
-    - checkout
-    - run:
-        name: install python 3.9.0
-        command: |
-          pyenv install 3.9.0
-          pyenv global 3.9.0
-    - run:
-        name: sam build
-        command: |
-          pip install pipenv
-          python -m venv venv
-          source venv/bin/activate
-
-          pipenv install
-
-          sam build --use-container
-
-version: 2.0
+version: 2
 
 jobs:
   deploy-dev:
-    <<: *deploy_template
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: install python 3.9.0
+          command: |
+            pyenv install 3.9.0
+            pyenv global 3.9.0
+      - run:
+          name: sam build
+          command: |
+            pip install pipenv
+            python -m venv venv
+            source venv/bin/activate
+
+            pipenv install
+
+            sam build --use-container
 
 workflows:
-  version: 2.0
+  version: 2
   aws-sam-build:
     jobs:
-      - deploy-dev:
-          context: aws-dev
+      - deploy-dev
