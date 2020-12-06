@@ -25,11 +25,6 @@ jobs:
             pip install aws-sam-cli
 
             sam build --use-container
-      - run:
-          name: loca start-api
-          command: |
-            ls
-            source venv/bin/activate
 
             sam local start-api
           background: true
