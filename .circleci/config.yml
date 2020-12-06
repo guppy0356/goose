@@ -1,0 +1,33 @@
+deploy_template: &deploy_template
+  machine: true
+  working_directory: ~/project/app
+  steps:
+    - checkout
+    - run:
+        name: install python 3.8.6
+        command: |
+          pyenv install 3.8.6
+          pyenv global 3.8.6
+    - run:
+        name: sam build
+        command: |
+          pip install pipenv
+          python -m venv venv
+          source venv/bin/activate
+
+          pipenv install
+
+          make build
+
+version: 2.0
+
+jobs:
+  deploy-dev:
+    <<: *deploy_template
+
+workflows:
+  version: 2.0
+  aws-sam-build:
+    jobs:
+      - deploy-dev:
+          context: aws-dev
