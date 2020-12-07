@@ -13,17 +13,13 @@ jobs:
       - run:
           name: Install Dockerize
           command: |
-            curl -s https://api.github.com/repos/jwilder/dockerize/releases/latest \
-            | grep "dockerize-linux-amd64.*tar.gz" \
-            | cut -d : -f 2,3 \
-            | tr -d \" \
-            | wget -qi -
+            DOWNLOAD_URL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/latest \
+                    | grep browser_download_url \
+                    | grep dockerize-linux-amd64 \
+                    | cut -d '"' -f 4)
 
-            tarball="$(find . -name "dockerize-linux-amd64*tar.gz")"
-            echo 1
-            sudo tar -C /usr/local/bin -xzvf $tarball
-            echo 2
-            rm $tarball
+            curl -s -L --create-dirs -o /tmp/dockerize.tar.gz "$DOWNLOAD_URL"
+            sudo tar -C /usr/local/bin -xzvf /tmp/dockerize.tar.gz
       - run:
           name: install python 3.6.3
           command: |
