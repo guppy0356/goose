@@ -11,6 +11,10 @@ jobs:
             cd /opt/circleci/.pyenv
             git pull
       - run:
+          name: Install Dockerize
+          command: |
+            wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz && rm dockerize-linux-amd64-v0.6.1.tar.gz
+      - run:
           name: install python 3.6.3
           command: |
             pyenv install 3.6.3
