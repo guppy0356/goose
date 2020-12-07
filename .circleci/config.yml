@@ -20,8 +20,9 @@ jobs:
             | wget -qi -
 
             tarball="$(find . -name "dockerize-linux-amd64*tar.gz")"
-
+            echo 1
             sudo tar -C /usr/local/bin -xzvf $tarball
+            echo 2
             rm $tarball
       - run:
           name: install python 3.6.3
