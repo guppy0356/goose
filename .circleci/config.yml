@@ -29,6 +29,10 @@ jobs:
             sam local start-api
           background: true
       - run:
+          name: Wait for api
+          command: |
+            dockerize -wait http://127.0.0.1:3000/hello -timeout 5m
+      - run:
           name: curl
           command: |
             curl -X GET http://127.0.0.1:3000/hello
